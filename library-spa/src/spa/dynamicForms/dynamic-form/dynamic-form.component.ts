@@ -83,7 +83,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     });
     this.clearForm();
 
-    // Подписка на изменения параметров маршрута
     this.route.params.subscribe((params) => {
       this.operation = params['operation'];
       if (this.operation === 'edit') {
@@ -116,18 +115,18 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     const authorsCollection = localStorage.getItem('AuthorsCollection');
     if (authorsCollection) {
       const authors = JSON.parse(authorsCollection);
-      // Find the author by id from the loaded authors
+
       const author = authors.find((author: any) => author.id === authorId);
 
       if (author) {
         this.author = {
-          books: author.books || [], // Set the books of the author (or an empty array if not found)
+          books: author.books || [],
         };
       } else {
-        this.author = { books: [] }; // Fallback in case the author is not found
+        this.author = { books: [] };
       }
     } else {
-      this.author = { books: [] }; // Fallback if there is no authorsCollection in localStorage
+      this.author = { books: [] };
     }
   }
 
