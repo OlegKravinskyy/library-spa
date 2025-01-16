@@ -1,0 +1,62 @@
+<div *ngIf="operation === 'create' || operation === 'edit'">
+  <h4>{{ operation === "create" ? "Create New Book" : "Edit Book" }}</h4>
+
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Book Name</label>
+      <input
+        id="name"
+        formControlName="name"
+        type="text"
+        class="form-control"
+      />
+      <div
+        *ngIf="bookForm.get('name')?.invalid && bookForm.get('name')?.touched"
+        class="text-danger"
+      >
+        Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="pages">Pages</label>
+      <input
+        id="pages"
+        formControlName="pages"
+        type="number"
+        class="form-control"
+      />
+      <div
+        *ngIf="bookForm.get('pages')?.invalid && bookForm.get('pages')?.touched"
+        class="text-danger"
+      >
+        Pages are required and must be a positive number.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="genres">Genres</label>
+      <select id="genres" formControlName="genres" class="form-control">
+        <!-- По умолчанию выбран жанр из формы -->
+        <option value="" disabled>Select a genre</option>
+        <option *ngFor="let genre of genresList" [value]="genre">
+          {{ genre }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          bookForm.get('genres')?.invalid && bookForm.get('genres')?.touched
+        "
+        class="text-danger"
+      >
+        Genres are required.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid">
+      {{ operation === "create" ? "Create Book" : "Save Changes" }}
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      Cancel
+    </button>
+  </form>
+</div>

@@ -1,0 +1,65 @@
+<h3>Author maintenance</h3>
+<button class="btn btn-primary" (click)="createAuthor()">Add new author</button>
+<table class="table table-hover table-striped">
+  <ng-container *ngFor="let item of AuthorList; let last = last">
+    <tr class="row">
+      <th class="col-lg-3 col-sm-3 col-3">Name</th>
+      <td class="col-lg-3 col-sm-3 col-3">{{ item.surname }}</td>
+      <td class="col-lg-3 col-sm-3 col-3" rowspan="4">
+        <button
+          class="btn btn-sm btn-primary"
+          (click)="showAuthorDetail(item.id)"
+        >
+          Details
+        </button>
+        <button class="btn btn-sm btn-warning" (click)="editAuthor(item.id)">
+          Edit
+        </button>
+        <button
+          class="btn btn-sm btn-danger"
+          *ngIf="item.id != deleteId"
+          (click)="deleteAuthorQuestion(item.id)"
+        >
+          Delete
+        </button>
+        <ng-container *ngIf="item.id === deleteId">
+          <button
+            class="btn btn-sm btn-light"
+            *ngIf="!isDeleting"
+            (click)="cancelDelete()"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            *ngIf="!isDeleting"
+            (click)="deleteAuthor(item.id)"
+          >
+            Delete
+          </button>
+          <span *ngIf="!isDeleting">Delete this author?</span>
+          <p *ngIf="deleteError">{{ deleteError }}</p>
+          <span *ngIf="isDeleting">Deleting...</span>
+        </ng-container>
+      </td>
+    </tr>
+    <tr class="row">
+      <th class="col-lg-3 col-sm-3 col-3">Surname</th>
+      <td class="col-lg-3 col-sm-3 col-3">{{ item.firstname }}</td>
+    </tr>
+    <tr class="row">
+      <th class="col-lg-3 col-sm-3 col-3">Patronymic</th>
+      <td class="col-lg-3 col-sm-3 col-3">{{ item.patronymic }}</td>
+    </tr>
+    <tr class="row">
+      <th class="col-lg-3 col-sm-3 col-3">Date of Birth</th>
+      <td class="col-lg-3 col-sm-3 col-3">{{ item.dateOfBurth }}</td>
+    </tr>
+
+    <tr *ngIf="!last">
+      <td colspan="4" class="separator">
+        <hr />
+      </td>
+    </tr>
+  </ng-container>
+</table>

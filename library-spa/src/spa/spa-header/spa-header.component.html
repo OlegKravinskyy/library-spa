@@ -1,0 +1,56 @@
+<div *ngIf="isLargeScreen" class="title-bar">
+  <img src="../../assets/images/free-icon-books-5606108.png" alt="logo" />
+  <div class="menu-area">
+    <!-- <icon-bar></icon-bar> -->
+    <spa-menu *ngIf="!menuService.isVertical"></spa-menu>
+
+    <div class="search-area">
+      <input
+        type="text"
+        placeholder="Search for books..."
+        [(ngModel)]="searchQuery"
+        (input)="searchBooks()"
+      />
+      <div *ngIf="searchResults.length > 0" class="search-results">
+        <ul>
+          <li *ngFor="let book of searchResults">
+            <strong>{{ book.name }}</strong> by {{ book.author }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isLargeScreen" class="title-bar-small">
+  <div class="small-icon-holder">
+    <button (click)="menuService.toggleMenu()">
+      <img
+        src="../../assets/images/burger_line_list_menu_nav_navigation_option_icon_123231.png"
+        alt="logo-small"
+      />
+    </button>
+    <div class="search-area">
+      <input
+        type="text"
+        placeholder="Search for books..."
+        [(ngModel)]="searchQuery"
+        (input)="searchBooks()"
+      />
+      <div *ngIf="searchResults.length > 0" class="search-results">
+        <ul>
+          <li *ngFor="let book of searchResults">
+            <strong>{{ book.name }}</strong> by {{ book.author }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="small-image-holder">
+    <img
+      src="../../assets/images/free-icon-books-5606108.png"
+      alt="logo"
+      class="small-image"
+    />
+  </div>
+</div>

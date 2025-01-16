@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+table {
+  margin-top: 20px;
+}
+
+.btn-sm {
+  width: 60px;
+  margin-left: 5px;
+}
+
+.separator hr {
+  border: 1px solid black;
+  margin: 10px 0;
+}

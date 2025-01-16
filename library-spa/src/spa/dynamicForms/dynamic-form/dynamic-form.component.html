@@ -1,0 +1,144 @@
+<h3>
+  <div [ngSwitch]="operation">
+    <span *ngSwitchCase="'detail'">Reading panel</span>
+    <span *ngSwitchCase="'create'">Adding panel</span>
+    <span *ngSwitchCase="'edit'">Editing panel</span>
+  </div>
+</h3>
+
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <!-- Поля формы -->
+    <div *ngFor="let field of vmDefinition">
+      <spa-dynamic-field
+        [field]="field"
+        [form]="form"
+        [operation]="operation"
+        [submitted]="submitted"
+      ></spa-dynamic-field>
+    </div>
+
+    <!-- Сообщение об ошибке -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Добавление или редактирование книги -->
+    <!-- <div *ngIf="operation === 'create' || operation === 'edit'">
+      <h4 class="edit">{{ operation === "create" ? "Create New Book" : "Edit Book" }}</h4>
+
+      <form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+        <div *ngFor="let field of bookFields">
+          <spa-dynamic-field
+            [field]="field"
+            [form]="bookForm"
+            [operation]="operation"
+            [submitted]="submitted"
+          ></spa-dynamic-field>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="bookForm.invalid"
+        >
+          {{ operation === "create" ? "Create Book" : "Save Book" }}
+        </button>
+      </form> -->
+
+    <!-- Ошибка при сохранении -->
+    <!-- <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </div> -->
+
+    <!-- Кнопки для действия -->
+    <div *ngIf="status !== 'waiting'" class="button-panel">
+      <div *ngIf="operation === 'detail'">
+        <button type="button" (click)="onBack()" class="btn btn-primary">
+          Go back
+        </button>
+        <button type="button" (click)="onEdit()" class="btn btn-success">
+          Edit
+        </button>
+      </div>
+      <div *ngIf="operation === 'create'">
+        <button type="button" (click)="onCancel()" class="btn btn-primary">
+          Go back
+        </button>
+        <button type="button" (click)="onCreate()" class="btn btn-success">
+          Create
+        </button>
+      </div>
+      <div *ngIf="operation === 'edit'">
+        <button type="button" (click)="onBack()" class="btn btn-primary">
+          Cancel
+        </button>
+        <button type="button" (click)="onSave()" class="btn btn-success">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Отображение книг автора -->
+<div *ngIf="operation === 'detail'">
+  <h4>Books</h4>
+  <table class="table table-striped" *ngIf="author.books.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Pages</th>
+        <th>Genres</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of author.books; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ book.name }}</td>
+        <td>{{ book.pages }}</td>
+        <td>{{ book.genres }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="editBook(book)">
+            Edit
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteBook(authorId, book.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-success" (click)="addBook()">Add Book</button>
+</div>
+
+<!-- Добавление или редактирование книги -->
+<div *ngIf="operation === 'create' || operation === 'edit'">
+  <h4>{{ operation === "create" ? "Create New Book" : "Edit Book" }}</h4>
+
+  <form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+    <div *ngFor="let field of bookFields">
+      <spa-dynamic-field
+        [field]="field"
+        [form]="bookForm"
+        [operation]="operation"
+        [submitted]="submitted"
+      ></spa-dynamic-field>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid">
+      {{ operation === "create" ? "Create Book" : "Save Book" }}
+    </button>
+  </form>
+
+  <!-- Ошибка при сохранении -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</div>

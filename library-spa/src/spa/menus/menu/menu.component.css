@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
+}
+
+:host(.vertical-menu) {
+  display: inline-block;
+  min-width: 160px;
+  max-width: 160px;
+  height: 100vh;
+  padding-left: 4px;
+  flex-grow: 0;
+  background-color: blueviolet;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

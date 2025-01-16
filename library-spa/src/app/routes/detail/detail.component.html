@@ -1,0 +1,10 @@
+<div *ngIf="author">
+  <spa-dynamic-form
+    [vm]="author"
+    [vmDefinition]="authorDefinitionInput"
+    [operation]="operation"
+    [errorMessage]="errorMessage"
+    (update)="updateAuthor($event)"
+    (create)="createAuthor($event)"
+  ></spa-dynamic-form>
+</div>

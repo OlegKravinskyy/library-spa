@@ -1,0 +1,19 @@
+<a
+  *ngFor="let icon of socialIcons"
+  [href]="icon.url"
+  [title]="icon.alt"
+  target="_blank"
+>
+  <img class="top-img" [src]="icon.imageFile" [alt]="icon.alt" />
+</a>
+
+<div *ngIf="showUserControls">
+  <button
+    *ngIf="!showLoader"
+    class="btn btn-sm btn-warning"
+    (click)="signOut()"
+  >
+    Sign
+  </button>
+  <img src="" alt="" *ngIf="showLoader" />
+</div>
